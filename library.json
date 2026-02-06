@@ -1,0 +1,19 @@
+{
+  "name": "RDA5807Light",
+  "version": "1.0.0",
+  "description": "RDA5807 library for CH32V003 and WCH RISC-V MCUs.",
+  "keywords": ["RDA5807", "FM", "radio", "CH32V003", "WCH", "RISC-V", "bare-metal"],
+  "authors": {
+    "name": "A. Kolesov",
+    "maintainer": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndyTakker/RDA5807Light.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/AndyTakker/RDA5807Light",
+  "frameworks": "*",
+  "platforms": ["wch-riscv"],
+  "headers": ["RDA5807Light.h"]
+}
