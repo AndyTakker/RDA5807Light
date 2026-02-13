@@ -35,7 +35,7 @@ int main() {
   uint32_t lastScan = 0;
   while (1) {
     uint32_t now = millis();
-    if (now - lastUpdate > 1000) { // Раз в секунду читаме параметры и выводим в порт
+    if (now - lastUpdate > 1000) { // Раз в секунду читаем параметры и выводим в порт
       lastUpdate = now;
       radio.updateStatus(); // Прочитаем регистры RDA
       printPrm();

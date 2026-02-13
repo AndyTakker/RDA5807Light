@@ -40,6 +40,8 @@ bool RDA5807M::begin(uint32_t bound) {
   rda.named.reg05.bits.VOLUME = 15;
   rda.named.reg05.bits.SEEKTH = 0b1000;
   rda.named.reg05.bits.INT_MODE = 1;
+  rda.named.reg05.bits.LNA_ICSEL = 0b11; // Максимальный ток усилителя
+  rda.named.reg05.bits.LNA_PORT = 0b10;  // LNAP (выбор зависит от антенны)
 
   // Регистр 0x07
   // Soft Blend — это технология плавного перехода между стерео и моно режимами
@@ -325,7 +327,7 @@ bool RDA5807M::isRdsReady() {
 //------------------------------------------------------------------------------
 void RDA5807M::updateStatus(void) {
   readRegisters(); // Читаем все читабельные регистры (0x0A - 0x0F)
-  
+
   if (rda.named.reg0A.bits.STC) { // Станция настроена, сбросим биты настройкии поиска
     rda.named.reg03.bits.TUNE = 0;
     writeReg(0x03);

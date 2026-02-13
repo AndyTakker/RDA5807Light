@@ -116,13 +116,13 @@ typedef union __attribute__((packed)) {
 // Register 0x05: Volume, Seek Threshold
 // ========================================================
 struct __attribute__((packed)) RDA5807M_REG05 {
-  uint16_t VOLUME : 4;     // [3:0]  Volume (DAC Gain): 0000=min (mute), 1111=max
-  uint16_t UNUSED_4_5 : 2; // [5:4]  Reserved
-  uint16_t UNUSED_6_7 : 2; // [7:6]  Reserved
-  uint16_t SEEKTH : 4;     // [11:8] Seek SNR Threshold (default 1000b ≈ 32dB)
-  uint16_t UNUSED_12 : 1;  // [12] Reserved
-  uint16_t SEEK_MODE : 2;  // [14:13] Default value is 00; When = 10, will add the RSSI seek mode.
-  uint16_t INT_MODE : 1;   // [15]   Interrupt Mode: 0=5ms pulse, 1=latched until reg 0x0C read
+  uint16_t VOLUME : 4;    // [3:0]  Volume (DAC Gain): 0000=min (mute), 1111=max
+  uint16_t LNA_ICSEL : 2; // [5:4]  LNA working current: 00=1.8ma, 01=2.1ma, 10=2.5ma, 11=3.0ma
+  uint16_t LNA_PORT : 2;  // [7:6]  LNA input port selection: 00: no input, 01: LNAN, 10: LNAP, 11: LNAN+LNAP (default LNAP)
+  uint16_t SEEKTH : 4;    // [11:8] Seek SNR Threshold (default 1000b ≈ 32dB)
+  uint16_t UNUSED_12 : 1; // [12] Reserved
+  uint16_t SEEK_MODE : 2; // [14:13] Default value is 00; When = 10, will add the RSSI seek mode.
+  uint16_t INT_MODE : 1;  // [15]   Interrupt Mode: 0=5ms pulse, 1=latched until reg 0x0C read
 };
 static_assert(sizeof(RDA5807M_REG05) == 2, "RDA5807M_REG05 must be 16 bits");
 typedef union __attribute__((packed)) {
