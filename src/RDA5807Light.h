@@ -5,9 +5,9 @@
 #include <Wire.h>
 #include <string.h>
 
-#ifndef constrain
+#undef constrain
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
-#endif
+
 
 #define I2C_ADDR_SEQ 0x10   // Последовательный режим (все регистры с 0x02 последовательно)
 #define I2C_ADDR_INDEX 0x11 // Индексный режим (к конкретному регистру)
