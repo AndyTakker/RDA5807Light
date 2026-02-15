@@ -151,16 +151,24 @@ void RDA5807M::cancelSeek() {
 //==============================================================================
 // Установка громкости. Проверяет допустимый диапазон
 // Возвращает фактически установленный уровень громкости, с учетом ограничений.
+// Нулевой уровень громкости не означает тишину. Звук все равно есть.
+// Поэтому если уменьшаем меньше нуля - включается Soft Mute.
 //------------------------------------------------------------------------------
 int8_t RDA5807M::setVolume(int8_t volume) {
-  volume = constrain(volume, 0, 15);
-  rda.named.reg05.bits.VOLUME = volume;
-  writeReg(0x05);
+  volume = constrain(volume, -1, 15);
+  if (volume < 0) {
+    setSoftMute(true);
+  } else {
+    setSoftMute(false);
+    rda.named.reg05.bits.VOLUME = volume;
+    writeReg(0x05);
+  }
   return volume;
 }
 
 void RDA5807M::setSoftMute(bool enabled) {
-  rda.named.reg04.bits.SOFTMUTE_EN = enabled;
+  rda.named.reg02.bits.DMUTE = !enabled;      // Разрешаем Soft Mute
+  rda.named.reg04.bits.SOFTMUTE_EN = enabled; // Разрешаем Soft Mute
   writeReg(0x04);
 }
 
