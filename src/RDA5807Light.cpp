@@ -159,7 +159,9 @@ int8_t RDA5807M::setVolume(int8_t volume) {
   if (volume < 0) {
     setSoftMute(true);
   } else {
-    setSoftMute(false);
+    if (rda.named.reg05.bits.VOLUME == 0) {
+      setSoftMute(false);
+    }
     rda.named.reg05.bits.VOLUME = volume;
     writeReg(0x05);
   }
