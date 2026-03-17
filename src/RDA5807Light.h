@@ -8,18 +8,18 @@
 #undef constrain
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
-
 #define I2C_ADDR_SEQ 0x10   // Последовательный режим (все регистры с 0x02 последовательно)
 #define I2C_ADDR_INDEX 0x11 // Индексный режим (к конкретному регистру)
 
 #define RDA_HEADER "FM Radio" // Текст вместо названия станции, если RDS не работает
+#define RDA_HEADER_LEN 9      // Восемь символов и ноль
 
 class RDA5807M {
   private:
   RDA_REGS_U rda = {0}; // Регистры RDA5807M
 
-  char stationName[9];    // PS: 8 символов + '\0'
-  char rdsStationName[8]; // Внутренний буфер для проверки корректности приема названия станции
+  char stationName[RDA_HEADER_LEN];        // PS: 8 символов + '\0'
+  char rdsStationName[RDA_HEADER_LEN - 1]; // Внутренний буфер для проверки корректности приема названия станции
 
   bool writeRegisters(uint8_t count);
   bool writeReg(uint8_t reg);

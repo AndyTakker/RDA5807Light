@@ -217,14 +217,15 @@ uint16_t RDA5807M::getFrequency() {
 // Название дополняется пробелами до 8 символов.
 //------------------------------------------------------------------------------
 const char *RDA5807M::getStationName() {
-  if (stationName[0] == '\0') {         // Если название не извлечено
-    memcpy(stationName, RDA_HEADER, 8); // Копируем стандартное
+  if (stationName[0] == '\0') {                          // Если название не извлечено
+    memcpy(stationName, RDA_HEADER, RDA_HEADER_LEN - 1); // Копируем стандартное
   }
-  for (int i = 0; i < 8; i++) { // Добъем до 8 символов пробелами
+  for (int i = 0; i < RDA_HEADER_LEN - 1; i++) { // Добъем до 8 символов пробелами
     if (stationName[i] == '\0') {
       stationName[i] = ' ';
     }
   }
+  stationName[RDA_HEADER_LEN - 1] = '\0';
   return stationName;
 }
 
